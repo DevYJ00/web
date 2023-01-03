@@ -14,29 +14,26 @@ window.addEventListener("load",function() {
     //     ctx.drawImage(img,0,500);
         
     // })
-    
-    
+    //-----------------------------------------------------------------------------------보류
+    /*
     //버블링 개념
     canvas.onclick = function() {
-        // apple1.move(1);
+        apple1.move(1);
         apple1.draw(ctx);
-        apple1.moveAde();
 
     }
-    //-----------------------------------------------------------------------------------보류
-    
     // 시간간격을 가지고  onclick이 발생했으면 좋겠는데!
     function test() {
         setTimeout(function() {
+            apple1.move(1);
             apple1.draw(ctx)
-            // apple1.move(1);
-            apple1.moveAde();
         
-        },1000)
+        },50)
     }
 
+    for(var i =0; i<50; i++)
     test();
- 
+    */
     //-----------------------------------------------------------------------------------보류
 
 
@@ -62,7 +59,7 @@ window.addEventListener("load",function() {
         move : function(dir) {
             switch(dir) { 
                 case 1 :  //북
-                 this.y -= 10; //여기 this 는 Apple
+                 this.y -= 10;
                  break;
                 case 2 : //동
                 this.x +=10;
@@ -76,21 +73,6 @@ window.addEventListener("load",function() {
             }
         },
 
-        moveAde : function() {
-            //시작점은 고정, 도착지점 dx,dy
-           
-            this.dx = 300, this.ydy =  200;
-            this.incline = (500-this.dy)/(0-this.dx)**2;
-
-            while(this.x < this.dx) {
-            this.x += +10;
-            this.y += this.incline * (0 - this.dx ) + this.dy;
-            // (100/(Math.sqrt(350))(this.x-350)**2) + 400;
-            }
-        },
-             //  여기 this는 Apple
-        
-
         
 
 
@@ -99,9 +81,8 @@ window.addEventListener("load",function() {
 
 var apple1 = new Apple();
 apple1.draw(ctx);
-// apple1.move(1);
 // ctx.bezierCurveTo(0,500,300,500,400,500);
-apple1.moveAde();
+
 
 
 })
