@@ -5,7 +5,7 @@ function GameCanvas() {
     
         // 이것을 붙여줘야지 canvas 자동완성 한다.
     /** @type {CanvasRenderingContext2D} */ 
-        var ctx = this.dom.getContext('2d');
+        this.ctx = this.dom.getContext('2d');
     
     
     this.boy = new Boy(100,100);
@@ -28,7 +28,7 @@ GameCanvas.prototype = { //모든 생성자에는 prototype이 있다.
     },
 
     draw : function() {
-        this.boy.draw(this);
+        this.boy.draw(this.ctx);
     },
 
     //----- event handler --------------

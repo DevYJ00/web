@@ -2,6 +2,6 @@
 //element.addEventListener("이벤트명",함수명,옵션)
 window.addEventListener("load",function() {
 
-    var gameCanvas = new GameCanvas();
+    const gameCanvas = new GameCanvas(); //바뀔 일이 없기 때문에 const로!
     gameCanvas.run();
 });

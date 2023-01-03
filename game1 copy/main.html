@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--ES6 소개 글 -->
+<!--코드 어쩌구 사진 참고 -->
+<script>
+    
+let kor = 20;
+let eng = 30;
+
+let obj = {kor, eng,total(){
+    return this.kor + this.eng;
+}};
+
+// function print1(exam) {
+//     console.log("kor" + exam.kor);
+//     console.log("eng:" + exam.eng);
+//     console.log("total:" + exam.total());
+// }
+
+function print1({kor,eng,total}) { // { } 중괄호를 왼쪽 : 변수 선언  vs { } 중괄호 오른족 : 변수 생성
+    console.log("kor : " + kor);
+    console.log("eng : " + eng);
+    console.log(total()); //NaN 나오니까 total은 뽀개기 ㄴㄴ
+}
+
+print1(obj);
+
+
+//-------또 다른 방법 가능
+function print2(exam) {
+    //2개만 쓰고 싶다면
+    let {kor, eng,aa = 5} = exam; // 변수 일부만을 선언도 가능
+    //변수 선언한것이므로 let kor; //불가
+    /*
+    let kor = exam.kor;
+    let eng = exam.eng;
+
+    이 두 줄을 간단하게 쓰면 let {kor, eng} = exam;  <- 변수 선언
+    */
+
+    console.log(aa); //5    
+}
+
+print2(obj);
+
+
+
+
+
+</script>
+<body>
+    
+</body>
+</html>
