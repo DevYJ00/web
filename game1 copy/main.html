@@ -17,11 +17,14 @@ let obj = {kor, eng,total(){
     return this.kor + this.eng;
 }};
 
-// function print1(exam) {
-//     console.log("kor" + exam.kor);
-//     console.log("eng:" + exam.eng);
-//     console.log("total:" + exam.total());
-// }
+function print1(exam) {
+    let kor = exam.kor; // let kor 은 print1꺼가 아니라 그냥 지역변수
+    
+    console.log("kor" + exam.kor);
+    console.log("eng:" + exam.eng);
+    console.log("total:" + exam.total());
+    console.log()
+}
 
 function print1({kor,eng,total}) { // { } 중괄호를 왼쪽 : 변수 선언  vs { } 중괄호 오른족 : 변수 생성
     console.log("kor : " + kor);

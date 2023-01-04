@@ -233,20 +233,26 @@
 // obj.total();
 
 //-----------------------------------------------------------
-// let attName = "kor";
+let attName = "kor";
 
-// let exam = { 
-//     [attName] : 10, 
-//     eng : 20,
-//     math : 30,
-//     student : {
-//         name : 'newlec',
-//         phone : '010-2222-3333',
-//     }
-// };
+let exam = { 
+    [attName] : 10, 
+    eng : 20,
+    math : 30,
+    student : {
+        name : 'newlec',
+        phone : '010-2222-3333',
+    }
+};
 
 
-// let {kor, eng : english, math, student:{name,phone}} = exam;
+let {kor, eng : english, math, student} = exam;
 // console.log(phone);
 // console.log(math);
 // console.log(name);
+
+//student만 하면 객체를 뽑아 온 것
+console.log(student);
+let {name, phone} = student;
+console.log(name);
+console.log(phone);

@@ -80,7 +80,7 @@ window.addEventListener("load",function() {
             //시작점은 고정, 도착지점 dx,dy
            
             this.dx = 300, this.ydy =  200;
-            this.incline = (500-this.dy)/(0-this.dx)**2;
+            this.incline = (500-this.dy)/(0-this.dx)*(0-this.dx);
 
             while(this.x < this.dx) {
             this.x += +10;
