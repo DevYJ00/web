@@ -4,7 +4,7 @@ window.addEventListener("load",function() {
 
     const gameCanvas = new GameCanvas(); //바뀔 일이 없기 때문에 const로!
     gameCanvas.run(); 
-    // gameCanvas.pause();
+   
 
 
 });

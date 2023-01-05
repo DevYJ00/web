@@ -28,7 +28,7 @@ class GameCanvas {
 
 
         if(this.pause) //this.pause = true면 게임 멈춤(게임 상태는 유지)
-            return; 
+            return ; 
 
 
         //60프레임으로 화면을 다시 그리는 코드
@@ -49,7 +49,7 @@ class GameCanvas {
 
     update() {
         this.boy.update();
-        this.boy.move(2); // 상태가 바뀌고
+        
     };
 
     draw() { // -- 에러나서 잠시 주석 처리
@@ -64,7 +64,7 @@ class GameCanvas {
     //----- event handler --------------
 
     clickHandler(e) { //prototype이니까 var fu = new fu~ 이건 적합하지 않음
-        // this.pause = true;
+        
         
         
         console.log(this); //GameCanvas가 나와야 하는데, this가 나옴 -> so bind(GameCanvas)
