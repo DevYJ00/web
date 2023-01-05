@@ -8,6 +8,9 @@ class GameCanvas {
         this.ctx = this.dom.getContext('2d');
 
         this.boy = new Boy(100, 100);// -- 이거 draw 메서드 오류나서 주석처리해놓음
+        
+        // 
+
 
         //게임 상태변수
         this.gameover = false; // this = GameCanvas 꺼
@@ -58,6 +61,8 @@ class GameCanvas {
     draw() { // -- 에러나서 잠시 주석 처리
         this.boy.draw(this.ctx); // this.boy <- 객체에 담겨있는 boy -> boy의 draw( ) 함수를 호출 , 매개변수로 게임캔바스의ctx를 넘겨줌, 만약 this안붙이고 ctx넘기면? boy에는 ctx가 없으니까 에러남
         //Uncaught ReferenceError: ctx is not defined at GameCanvas.draw (game-canvas.js:56:23)  at GameCanvas.run (game-canvas.js:36:14) at app.js:6:16
+        
+        
     }
 
 
