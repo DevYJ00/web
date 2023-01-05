@@ -27,12 +27,12 @@ class GameCanvas {
     run() {
 
 
-        if(this.pause) //this.pause = true면 게임 멈춤(게임 상태는 유지)
+        if(this.pause) //this.pause = true면 게임 멈춤(게임 상태는 유지) return되면 함수 호출한곳으로 되돌아가고 (app.js)
             return ; 
 
 
         //60프레임으로 화면을 다시 그리는 코드
-        this.update(); //지워야 하니까  - 또 여기 this는 누구야 GameCanvas?
+        this.update(); //지워야 하니까  - 또 여기 this는 누구야 GameCanvas ㅇㅇ 맞음
         this.draw();
 
 
@@ -43,17 +43,21 @@ class GameCanvas {
         //10초 후 
         // window.setTimeout(this.run.bind(this), 1000) // 1000 = 1초
         window.setTimeout(()=>{
-            this.run();
+            this.run(); 
         },17)
+
+        // window.setTimeout(run(),17) <- 이러면 window의 run이 호출되니까 bind해줘야하는데 화살표함수로하면 편리
+
     }
 
     update() {
-        this.boy.update();
+        this.boy.update(); //this.boy <- 객체에 담겨있는 boy -> 그러면  boy의 update() 함수가 호출되는거지 -> boy파일로 가고
         
     };
 
     draw() { // -- 에러나서 잠시 주석 처리
-        this.boy.draw(this.ctx);
+        this.boy.draw(this.ctx); // this.boy <- 객체에 담겨있는 boy -> boy의 draw( ) 함수를 호출 , 매개변수로 게임캔바스의ctx를 넘겨줌, 만약 this안붙이고 ctx넘기면? boy에는 ctx가 없으니까 에러남
+        //Uncaught ReferenceError: ctx is not defined at GameCanvas.draw (game-canvas.js:56:23)  at GameCanvas.run (game-canvas.js:36:14) at app.js:6:16
     }
 
 
