@@ -139,5 +139,62 @@ for(let v of notice.values())
 console.log(`value : ${v}`);
 
 //key value 한번에 뽑는것도 가능
-for(let [k,v] of notice.entries())
+for(let [k,v] of notice.entries()) //set 계열 컬렉션 - 여기 기능 쓸라면 여기로
 console.log(`key : ${k}, value : ${v}`);
+
+console.log("다이렉트로 뽑기")
+for(let [k,v] of notice) // map에서 바로 뽑아내기
+console.log(`key : ${k}, value : ${v}`);
+
+//notice에서 뽑아낸게 배열임 - 반환되는 배열은 [키, 값] 이니까
+for(let n of notice)
+console.log(` value : ${n[1]}`);
+
+console.log(`key 뽑기`)
+for(let n of notice)
+console.log(`key : ${n[0]}`);
+
+
+console.log("value만 뽑기2")
+for(let [,v] of notice) // map에서 바로 뽑아내기
+console.log(`value : ${v}`);
+
+// console.log("key만 뽑기")
+// for(let [k,] of notice) // map에서 바로 뽑아내기
+// console.log(`key : ${k}, value : ${v}`);
+
+
+//---------------------------------------
+//object를 map으로 만들 수 없나여?
+let exam3 = {
+    kor : 10,
+    eng : 20,
+    math : 30
+
+};
+
+for(let [k,v] of Object.entries(exam3))  
+console.log(v);
+
+for(let [k,v] of Object.entries(exam3))  
+console.log(k);
+
+//공지사항 관리해야할 때 목록을
+let list = [
+    { id : 1, title : "jsp is...", writerId : "newlec" },
+    { id : 2, title : "servlet is...", writerId : "newlec" },
+    { id : 3, title : "spring is...", writerId : "newlec" },
+    { id : 4, title : "kjjj is...", writerId : "newlec" },
+
+];
+
+list.forEach((n)=>{
+    // console.log(n);
+}); //값만 읽어 옴
+
+
+let ar = list.map((n)=>{return `<span>${n.title}</span>`}); //처리한 후 새로운 걸 반환 - 제목만 꺼낸 배열이 만들어짐
+console.log(ar);
+
+
+list.forEach()
