@@ -1,7 +1,7 @@
 class Boy { //  기본은 정면보는
 
     constructor(x, y) {
-        //x,y : 출력 위치 값 안주면 (200,100) 위치
+        //x,y : 출력 위치 값 안주면 (200,100) 위치 - 캐릭터 위치/ 캐릭터 생성과 캐릭터 그리는건 별도!!!
         this.x = x || 200;
         this.y = y || 100;
 
@@ -11,14 +11,7 @@ class Boy { //  기본은 정면보는
         this.dx = 0; //목적지x
         this.dy = 0; //목적지y
 
-
-
-
-
-
-
-
-
+        //캐릭터 9개중 인덱스
         this.ix = 1;
         this.iy = 2; //정면보는게 기본
 
@@ -41,6 +34,7 @@ class Boy { //  기본은 정면보는
     update() {
         this.x += this.vx;
         this.y += this.vy;
+        //보이변화상태고려!
     }
 
     move(dir) {
