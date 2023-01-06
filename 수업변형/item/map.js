@@ -1,15 +1,20 @@
 class Background {
 
-    // constructor(x,y) {
-    //     //이미지가 로드되야겠지 - 배경객체에 담아
-     
-    //     const dx = x || 0;
-    //     const dy = y || 0;
+    constructor(x,y) {
 
-    // }
+        this.x = 0;
+        this.y = 0;
+
+
+        //이미지가 로드되야겠지 - 배경객체에 담아
+        this.img = document.querySelector('#bg');
+     
+    
+    }
 
     draw(ctx) {
         // 이미지가 로드되면 출력해라
+        ctx.drawImage(this.img, this.x, this.y);
    
     }
 
