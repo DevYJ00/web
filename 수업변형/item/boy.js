@@ -119,22 +119,26 @@ class Boy { //  기본은 정면보는
         
     
 
-    // move(dir) {
-    //     switch (dir) {
-    //         case 1: //북쪽
-    //             this.y -= 1;
-    //             break;
-    //         case 2: //동쪽
-    //             this.x += 1;
-    //             break;
-    //         case 3: //남쪽
-    //             this.y += 1;
-    //             break;
-    //         case 4: //서쪽
-    //             this.x -= 1;
-    //             break;
-    //     }
-    // };
+    move(key) {
+
+        console.log(key);
+
+       
+        switch (key) {
+            case 'ArrowUp': //북쪽
+                this.y -= 1;
+                break;
+            case 'ArrowRight': //동쪽
+                this.x += 1;
+                break;
+            case 'ArrowDown': //남쪽
+                this.y += 1;
+                break;
+            case 'ArrowLeft': //서쪽
+                this.x -= 1;
+                break;
+        }
+    };
 
     moveTo(dx,dy) {
         /* 이렇게 해버리면 순간이동이 됨. this.x = boy의 x(d위치값)

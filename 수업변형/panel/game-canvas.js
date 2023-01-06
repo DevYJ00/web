@@ -3,6 +3,7 @@ class GameCanvas {
     constructor() {
 
         this.dom = document.querySelector('.game-canvas'); //this.dom = canvas
+        this.dom.focus(); //처음부터 활성화되도록
         // console.log("이게뭔데" + this); 이것을 붙여줘야지 canvas 자동완성 한다.
         /** @type {CanvasRenderingContext2D} */
         this.ctx = this.dom.getContext('2d');
@@ -22,10 +23,11 @@ class GameCanvas {
         this.pause = false;
 
 
-
+        //이벤트
         this.dom.onclick = this
             .clickHandler
             .bind(this); //this.clickHandler() 이렇게하면 안됨 이건 호출임
+        this.dom.onkeydown = this.keyDownHandler.bind(this);
     }
 
     run() {
@@ -77,11 +79,16 @@ class GameCanvas {
         
         
         
-        console.log(this); //GameCanvas가 나와야 하는데, this가 나옴 -> so bind(GameCanvas)
+        console.log(`마우스클릭`); //GameCanvas가 나와야 하는데, this가 나옴 -> so bind(GameCanvas)
         // this.boy.move(2);
         this.boy.moveTo(e.x,e.y);
 
         // 화면 지우기 ( boy1 은 유지하고 boy2만 지워야 함) - 화면을 화면을 지우는것은 배경으로 덮어버린다.
         this.boy.draw(this.ctx);
+    }
+
+    keyDownHandler(e) {
+        // console.log(`키보드클릭 `);
+        this.boy.move(e.key);
     }
 }
