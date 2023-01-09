@@ -1,4 +1,10 @@
-class GameCanvas {
+//boy, bg, enemy사용하니까 import 필요
+import Boy from '../item/boy.js';
+import Background from '../item/map.js';
+import Enemy from '../item/enemy.js';
+
+
+export default class GameCanvas {
 
     constructor() {
 
@@ -10,8 +16,16 @@ class GameCanvas {
 
         this.bg = new Background();
         this.boy = new Boy(100, 200);// -- 이거 draw 메서드 오류나서 주석처리해놓음
+        // this.boy.speed++; 
+        // console.log(this.boy.speed); //NaN
+        //# 붙은거라 읽어올 수가 없음
+        // this.boy.setSpeed(this.boy.getSpeed()+1);
+        // console.log("speed : " + this.boy.getSpeed());
+        this.boy.speed++;
+
+        //적
+        this.enemy = new Enemy();
         
-        // 
 
 
         //게임 상태변수
@@ -29,6 +43,7 @@ class GameCanvas {
             .bind(this); //this.clickHandler() 이렇게하면 안됨 이건 호출임
             
         this.dom.onkeydown = this.keyDownHandler.bind(this);
+        this.dom.onkeyup = this.keyUpHandler.bind(this);
     }
 
     run() {
@@ -46,7 +61,7 @@ class GameCanvas {
 
 
 
-        console.log("timer start")
+        // console.log("timer start")
         //10초 후 
         // window.setTimeout(this.run.bind(this), 1000) // 1000 = 1초
         window.setTimeout(()=>{
@@ -66,6 +81,7 @@ class GameCanvas {
         this.bg.draw(this.ctx);
         this.boy.draw(this.ctx); // this.boy <- 객체에 담겨있는 boy -> boy의 draw( ) 함수를 호출 , 매개변수로 게임캔바스의ctx를 넘겨줌, 만약 this안붙이고 ctx넘기면? boy에는 ctx가 없으니까 에러남
         //Uncaught ReferenceError: ctx is not defined at GameCanvas.draw (game-canvas.js:56:23)  at GameCanvas.run (game-canvas.js:36:14) at app.js:6:16
+        this.enemy.draw(this.ctx);
         
     }
 
@@ -89,24 +105,53 @@ class GameCanvas {
     }
 
     keyDownHandler(e) {
-        // console.log(`키보드클릭 `);
-        console.log(e.key);
+      
+        // console.log(e.key);
         switch (e.key) {
             case 'ArrowUp': //북쪽
                 this.boy.move(1);
                 break;
             case 'ArrowRight': //동쪽
-            this.boy.move(2);
+                this.boy.move(2);
                 break;
             case 'ArrowDown': //남쪽
-            this.boy.move(3);
+                this.boy.move(3);
                 break;
             case 'ArrowLeft': //서쪽
-            this.boy.move(4);
+                this.boy.move(4);
                 break;
         }
 
 
-        this.boy.move(e.key);
+        
+    }
+
+
+    keyUpHandler(e) {
+        //키보드 뗏을때 멈추도록. - move(0)으로 만들면 됨
+        // this.boy.move(0); //0 하면 더해질값 없어서 멈춤 - 멈추긴 멈추지만 옳치 않음
+        //하지만, 4개의 방향을 개별로 안하고 하나로 해서 뭔가 움직임이 부자연스럽다.
+        //움직임을 4개로 받았다면 멈추는것도 그렇게 해야 함.
+        //그리고 메서드명도 move일리가 없음. 어떤 방향으로 가는걸 멈춰라.
+
+
+        switch (e.key) {
+            case 'ArrowUp': //북쪽
+                this.boy.stop(1);
+                break;
+            case 'ArrowRight': //동쪽
+                this.boy.stop(2);
+                break;
+            case 'ArrowDown': //남쪽
+                this.boy.stop(3);
+                break;
+            case 'ArrowLeft': //서쪽
+                this.boy.stop(4);
+                break;
+        }
     }
 }
+
+
+
+// export default GameCanvas;

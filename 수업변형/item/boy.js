@@ -1,4 +1,8 @@
-class Boy { //  기본은 정면보는
+export default class Boy { //  기본은 정면보는
+
+    // #vx; // 자바의 private같은 기능
+
+    #speed; //선언만 - 초기화는 생성자에서
 
     constructor(x, y) {
         //x,y : 출력 위치 값 안주면 (200,100) 위치
@@ -37,6 +41,22 @@ class Boy { //  기본은 정면보는
         //속도 늦추기. (walkDelay 써도되긴함)
         // this.cp = 0;
         this.walkDelay = 10; //여기 50잡을 필요가있나? - 없음
+        this.dir = 0;
+        this.moveLeft = false;
+        this.moveRight = false;
+        this.moveUp = false;
+        this.moveDown = false;
+
+        this.#speed = 1;
+    }
+
+    //setter, getter를 좀 더 은닉성 있게 표현하는 방법
+    set speed(value) {
+        this.#speed = value;
+    }
+
+    get speed() {
+        return this.#speed;
     }
 
     draw(ctx) {
@@ -53,19 +73,69 @@ class Boy { //  기본은 정면보는
 
     //처음에 멈추는거 전체를 if문으로 감싸고 vx가 0이 아닐때만 동작하도록
     update() {
-        // this.ix 가 상태
-        if(this.vx != 0) {
+
+            //-------------------------------------------------------------
+    //   이동을 위한 코드    
+    // switch (this.dir) {
+    //     case 1: //북쪽
+    //         this.y -= 1;
+    //         break;
+    //     case 2: //동쪽
+    //         this.x += 1;
+    //         break;
+    //     case 3: //남쪽
+    //         this.y += 1;
+    //         break;
+    //     case 4: //서쪽
+    //         this.x -= 1;
+    //         break;
+    // }
+    // ----> 4개의 변수를 했으니 이제 이건 무의미함.
+     //   이동을 위한 코드  
+    // console.log(this.moveUp);
+    // 이미지변환을 여기 넣으면 안되는게 아닌가 싶었는데? 그냥 이동에는 속도,방향이 포함되니까 ㄱㅊ
+    if(this.moveUp) {
+    this. iy = 0;
+        this.y -= this.#speed;
+    }
+    if(this.moveDown)
+    this.iy = 2;
+        this.y +=this.#speed;
+    if(this.moveLeft)
+    this.iy = 3;
+        this.x -=this.#speed;
+    if(this.moveRight)
+    this.iy = 1;
+        this.x +=this.#speed;
+
+
+        //벡터가 0이면 반환 - 서있는 모습
+        if(!(this.moveLeft||this.moveRight||this.moveDown||this.moveUp||false)) //하나라도 눌린게 없고, VX가 0이라면 return해라
+        if(this.vx == 0 && this.vy ==0) {
+            this.ix = 1;
+            return;
+        }
+    
+
+        this.x += this.vx;
+        this.y += this.vy;
+
+
+        // 걸음을 걷는 효과
+       
         this.walkDelay--;
         if(this.walkDelay ==0)
-        {
-            this.ix = this.dx == 0 ? this.ix = 1 : (this.ix == 2 ? 0 : 2);
+        {   // this.ix ==1 ? 1 : (this.ix == 2 ? 0 : 2);  <--- 처음에 멈춰있거나 움직이거나 둘 중 하나니까 1 : (this.ix == 2 ? 0 : 2); <- 1 이부분도 고려해줌
+            this.ix =  this.ix == 2 ? 0 : 2;
             // this.ix = this.ix == 2 ? 0 : 2;
             //사진선택
             
             this.walkDelay = 10;
+          
+         
         }
-    } else 
-        this.ix = 1;
+
+      
 
         // this.cp = this.cp + 3;
 
@@ -95,10 +165,7 @@ class Boy { //  기본은 정면보는
 
    
 
-        this.x += this.vx;
-        this.y += this.vy;
-        }
-
+      
         // if((parseInt(this.dx) == parseInt(this.mx))) {
         //     this.x *=1;
         //     this.cx = this.dx;
@@ -115,28 +182,58 @@ class Boy { //  기본은 정면보는
         
         // console.log(`목적지 : ${this.dx, this.dy}`)
         // console.log(`현재위치 : ${this.mx, this.y}`)
+
+    }
+
+
     
-        
     
 
     move(dir) {
+        this.dir = dir;
+        switch (this.dir) { //this.dir로 하면 0으로 읽어옴
+            //북쪽 남쪽은 로직이 같으니까(위,아래)
+            case 1:
+                this.moveUp = true;
+                break;
+            case 3:
+                this.moveDown = true;
+                break; //서쪽
+            //동쪽
+            case 2:
+                this.moveRight = true;
+                console.log("출력" + this.moveRight);
+                break;
+            case 4:
+                this.moveLeft = true;
+                break;
 
-        switch (dir) {
-            case 1: //북쪽
-                this.y -= 1;
-                break;
-            case 2: //동쪽
-                this.x += 1;
-                break;
-            case 3: //남쪽
-                this.y += 1;
-                break;
-            case 4: //서쪽
-                this.x -= 1;
-                break;
+            
+            
         }
 
+        console.log(this.moveRight);
     };
+
+    stop(dir) {
+        this.dir = dir;
+        switch (this.dir) {
+            //북쪽 남쪽은 로직이 같으니까(위,아래)
+            case 1:
+                this.moveUp = false;
+                break;
+            case 3:
+                this.moveDown = false;
+                break; 
+            case 2:
+                this.moveRight = false;
+                break;
+            case 4:
+                this.moveLeft = false;
+                break;
+        }
+    }
+
 
     moveTo(dx,dy) {
         /* 이렇게 해버리면 순간이동이 됨. this.x = boy의 x(d위치값)
