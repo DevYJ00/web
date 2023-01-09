@@ -36,7 +36,7 @@ class Boy { //  기본은 정면보는
 
         //속도 늦추기. (walkDelay 써도되긴함)
         // this.cp = 0;
-        this.walkDelay = 50;
+        this.walkDelay = 10; //여기 50잡을 필요가있나? - 없음
     }
 
     draw(ctx) {
@@ -119,25 +119,23 @@ class Boy { //  기본은 정면보는
         
     
 
-    move(key) {
+    move(dir) {
 
-        console.log(key);
-
-       
-        switch (key) {
-            case 'ArrowUp': //북쪽
+        switch (dir) {
+            case 1: //북쪽
                 this.y -= 1;
                 break;
-            case 'ArrowRight': //동쪽
+            case 2: //동쪽
                 this.x += 1;
                 break;
-            case 'ArrowDown': //남쪽
+            case 3: //남쪽
                 this.y += 1;
                 break;
-            case 'ArrowLeft': //서쪽
+            case 4: //서쪽
                 this.x -= 1;
                 break;
         }
+
     };
 
     moveTo(dx,dy) {

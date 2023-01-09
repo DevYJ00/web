@@ -32,9 +32,29 @@ class Boy { //  기본은 정면보는
     };
 
     update() {
+
+        //처음에 안움직일 땐, index=1사진 출력 - 사진도 상태가 변화하는거니까 update
+        
+        // if(vx != 0) {
+        //     // 목적지에 도착하는 것도 고려(vx 값은 계속 가니까 dx=0  목적지 도착하면 ix=1로 바꿔줌)
+        //     this.ix = this.dx == 0 ? this.ix = 1 : (this.ix == 2 ? 0 : 2); 
+        // } else
+        //     this.ix = 1;
+
+
+
+ 
+        //보이변화상태고려!
+
+        // 목적지에 도착하면 벡터값 0 
+        if((this.dx-1< this.x && this.x <this.dx+1) && (this.dy-1 < this.y && this.y <this.dy+1)) {
+            this.vx = 0;
+            this.vy = 0;
+        }
+
         this.x += this.vx;
         this.y += this.vy;
-        //보이변화상태고려!
+
     }
 
     move(dir) {

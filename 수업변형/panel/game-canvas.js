@@ -27,6 +27,7 @@ class GameCanvas {
         this.dom.onclick = this
             .clickHandler
             .bind(this); //this.clickHandler() 이렇게하면 안됨 이건 호출임
+            
         this.dom.onkeydown = this.keyDownHandler.bind(this);
     }
 
@@ -89,6 +90,23 @@ class GameCanvas {
 
     keyDownHandler(e) {
         // console.log(`키보드클릭 `);
+        console.log(e.key);
+        switch (e.key) {
+            case 'ArrowUp': //북쪽
+                this.boy.move(1);
+                break;
+            case 'ArrowRight': //동쪽
+            this.boy.move(2);
+                break;
+            case 'ArrowDown': //남쪽
+            this.boy.move(3);
+                break;
+            case 'ArrowLeft': //서쪽
+            this.boy.move(4);
+                break;
+        }
+
+
         this.boy.move(e.key);
     }
 }
