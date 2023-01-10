@@ -1,4 +1,5 @@
 import Background from '../item/background.js';
+import Apple from '../item/apple.js';
 
 export default class GameCanvas {
 
@@ -18,13 +19,24 @@ export default class GameCanvas {
   run() {
 
     this.draw();
+    this.update();
+
+    //run()을 계속 돌려야 하는데.
+    window.setInterval(()=> {
+      this.run()
+    },10);
     
   }
 
 
   draw() {
-    this.bg.draw(this.ctx);
+    // this.bg.draw(this.ctx);
     this.apple.draw(this.ctx);
   }
 
+  update() {
+    this.apple.update();
+    
+  }
 }
+

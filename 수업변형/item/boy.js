@@ -47,10 +47,10 @@ export default class Boy { //  기본은 정면보는
         this.moveUp = false;
         this.moveDown = false;
 
-        this.#speed = 1;
+        this.#speed = 1; //같은 클래스내니까 set아니고 바로 접근해서 초기화 가능! 같은 모듈이아니라면 set,get 이용
     }
 
-    //setter, getter를 좀 더 은닉성 있게 표현하는 방법
+    //setter, getter를 좀 더 은닉성 있게 표현하는 방법 - 외부에서 접근할 수 있도록 set, get 제공
     set speed(value) {
         this.#speed = value;
     }
@@ -95,18 +95,21 @@ export default class Boy { //  기본은 정면보는
     // console.log(this.moveUp);
     // 이미지변환을 여기 넣으면 안되는게 아닌가 싶었는데? 그냥 이동에는 속도,방향이 포함되니까 ㄱㅊ
     if(this.moveUp) {
-    this. iy = 0;
+        this. iy = 0;
         this.y -= this.#speed;
     }
-    if(this.moveDown)
-    this.iy = 2;
+    if(this.moveDown) {
+        this.iy = 2;
         this.y +=this.#speed;
-    if(this.moveLeft)
-    this.iy = 3;
+    }
+    if(this.moveLeft){
         this.x -=this.#speed;
-    if(this.moveRight)
+    }
+    if(this.moveRight){
     this.iy = 1;
         this.x +=this.#speed;
+    }
+    
 
 
         //벡터가 0이면 반환 - 서있는 모습

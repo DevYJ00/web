@@ -13,6 +13,7 @@ export default class GameCanvas {
         // console.log("이게뭔데" + this); 이것을 붙여줘야지 canvas 자동완성 한다.
         /** @type {CanvasRenderingContext2D} */
         this.ctx = this.dom.getContext('2d');
+        this.dom.width = 700;
 
         this.bg = new Background();
         this.boy = new Boy(100, 200);// -- 이거 draw 메서드 오류나서 주석처리해놓음
@@ -21,10 +22,28 @@ export default class GameCanvas {
         //# 붙은거라 읽어올 수가 없음
         // this.boy.setSpeed(this.boy.getSpeed()+1);
         // console.log("speed : " + this.boy.getSpeed());
-        this.boy.speed++;
+        //boy 스피드 설정 , boy 모듈에서 private설정해놔서 다이렉트로 접근 불가
+        //getSpeed(), setSpeed() 라고 설정해놓으면 외부에서 쓸 때 너무나도 대놓고 드러나니까 접근자 프로퍼티를 이용
+        // console.log(this.boy.speed = 5);
+        // console.log(this.boy.speed) //  set  이용한건데 set느낌이 없음
+
 
         //적
-        this.enemy = new Enemy();
+        // this.enemy = new Enemy();
+        // this.enemies = [
+        //     new Enemy(10,0),new Enemy(30,0),new Enemy(50,0),new Enemy(100,0),new Enemy(130,0),
+        //     new Enemy(10,20),new Enemy(50,20),new Enemy(130,45),new Enemy(50,30),new Enemy(70,90)
+        // ]; - composition 방법
+        this.enemies = []; //필요에 따라 생성해서 담음 - aggregation.
+        this.enemyAppearDelay = Math.ceil(Math.random()*30)+30;
+
+
+
+        // //콜백함수 부여
+        // for(let enemy of this.enemies) 
+        // enemy.onOutOfScreen = (en) => { //en은 현재 밖으로 벗어난 전투기
+        //     this.enemies.splice(this.enemies.indexOf(en),1); // <- 배열에서 어떻게 지우지 splice? - indexOf() 로 객체도 찾을 수 있음
+        // }; // 화살표함수 안쓴 이유(this안쓰려고, 호출은 enemy가 하지만 수행은 게임캔바스가)    
         
 
 
@@ -44,6 +63,9 @@ export default class GameCanvas {
             
         this.dom.onkeydown = this.keyDownHandler.bind(this);
         this.dom.onkeyup = this.keyUpHandler.bind(this);
+
+
+        
     }
 
     run() {
@@ -73,15 +95,51 @@ export default class GameCanvas {
     }
 
     update() {
-        this.bg.update();
+        
         this.boy.update(); //this.boy <- 객체에 담겨있는 boy -> 그러면  boy의 update() 함수가 호출되는거지 -> boy파일로 가고
-    };
+       
+        for(let enemy of this.enemies)
+        enemy.update();
+        
+        this.enemyAppearDelay--; //랜덤하게 0.5초~1초 사이에 떨어지게. 
+        if(this.enemyAppearDelay == 0) {
+            //숫자 무슨일.. 
+            let max = this.dom.width+50
+            let min = 50;
+            let x = Math.random() * (max - min) -50; // -50~this.dom.width + 50;
+            let y = -10; // 0으로 걸었는데 왜 처음에 0부터 안떨어지지?했는데 delay때문에.
+            
+            //1.방법1
+            // this.enemies.push(new Enemy(x,y)); // 배열에 push로 담을 수 있음
+            //배열에 onOutOfScreen 부여해야하는데,,
+            
+            // //콜백함수 부여
+            // for(let enemy of this.enemies) 
+            // enemy.onOutOfScreen = (en) => { //en은 현재 밖으로 벗어난 전투기
+            //     this.enemies.splice(this.enemies.indexOf(en),1); // <- 배열에서 어떻게 지우지 splice? - indexOf() 로 객체도 찾을 수 있음
+            // }; // 화살표함수 안쓴 이유(this안쓰려고, 호출은 enemy가 하지만 수행은 게임캔바스가)    
+          
+            let enemy = new Enemy(x,y);
+            enemy.onOutOfScreen = this.enemyOnOutOfScreenHandler.bind(this);
+            this.enemies.push(enemy);
+
+            this.enemyAppearDelay = Math.floor(Math.random()*(30))+30; //초기화  --- 이게 0.5초~1초 맞나?
+            console.log(this.enemyAppearDelay);
+            }
+            
+            
+        }
+         
+        enemyOnOutOfScreenHandler(en) {
+             this.enemies.splice(this.enemies.indexOf(en),1);
+        }
 
     draw() { // -- 에러나서 잠시 주석 처리
         this.bg.draw(this.ctx);
         this.boy.draw(this.ctx); // this.boy <- 객체에 담겨있는 boy -> boy의 draw( ) 함수를 호출 , 매개변수로 게임캔바스의ctx를 넘겨줌, 만약 this안붙이고 ctx넘기면? boy에는 ctx가 없으니까 에러남
         //Uncaught ReferenceError: ctx is not defined at GameCanvas.draw (game-canvas.js:56:23)  at GameCanvas.run (game-canvas.js:36:14) at app.js:6:16
-        this.enemy.draw(this.ctx);
+        for(let enemy of this.enemies)
+            enemy.draw(this.ctx);
         
     }
 
@@ -150,8 +208,6 @@ export default class GameCanvas {
                 break;
         }
     }
+
 }
-
-
-
 // export default GameCanvas;
