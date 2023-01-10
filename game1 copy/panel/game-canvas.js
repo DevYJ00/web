@@ -84,7 +84,7 @@ class GameCanvas {
         
         console.log(this); //GameCanvas가 나와야 하는데, this가 나옴 -> so bind(GameCanvas)
         // this.boy.move(2);
-        this.boy.moveTo(e.x,e.y);
+        this.boy.moveTo(e.x,e.y); //boy가 변화하는건 boy가 책임!!
 
         // 화면 지우기 ( boy1 은 유지하고 boy2만 지워야 함) - 화면을 화면을 지우는것은 배경으로 덮어버린다.
         this.boy.draw(this.ctx); //캔바스의 ctx로 boy를 그려준다
