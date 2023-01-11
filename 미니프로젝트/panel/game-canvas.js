@@ -1,5 +1,6 @@
 import Background from '../item/background.js';
-import Apple from '../item/apple.js';
+// import Apple from '../item/apple.js';
+import Fruits from '../item/fruits.js';
 
 export default class GameCanvas {
 
@@ -13,30 +14,50 @@ export default class GameCanvas {
     
     //객체
     this.bg = new Background();
-    this.apple = new Apple();
+    this.fruits = [];
+    // this.fruit = new Fruits();
+    // this.apple = new Apple();
+    
+    this.fruitmakeDelay = 30;
   }
 
   run() {
 
-    this.draw();
     this.update();
+    this.draw();
 
     //run()을 계속 돌려야 하는데.
     window.setInterval(()=> {
       this.run()
-    },10);
+    },60);
     
   }
 
 
   draw() {
-    // this.bg.draw(this.ctx);
-    this.apple.draw(this.ctx);
+    this.bg.draw(this.ctx);
+    for(let fruit of this.fruits)
+      fruit.draw(this.ctx);
+    // this.apple.draw(this.ctx);
+    
+
   }
 
   update() {
-    this.apple.update();
+    // 진행되면서 과일이 추가되어야 하니까
+    this.fruitmakeDelay --;
+    if(this.fruitmakeDelay == 0) {
+      let fruit = new Fruits();
+        this.fruits.push(fruit);
+
+      for(let fruit of this.fruits)
+        fruit.update(this.ctx);
+      // this.apple.update(this.ctx);
+      this.fruitmakeDelay = Math.floor(Math.random()*20)+30;
+      
     
   }
+}
+
 }
 
