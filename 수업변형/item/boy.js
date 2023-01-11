@@ -1,3 +1,5 @@
+import newlec from "../newlec.js";
+
 export default class Boy { //  기본은 정면보는
 
     // #vx; // 자바의 private같은 기능
@@ -23,8 +25,8 @@ export default class Boy { //  기본은 정면보는
         this.iy = 2; //정면보는게 기본
 
         //이 부분은 손대지 않음.
-        this.sw = 106;
-        this.sh = 148.25;
+        this.sw = this.img.width/3;
+        this.sh = this.img.height/4;
         this.sx = this.ix * this.sw;
         this.sy = this.iy * this.sh;
 
@@ -48,6 +50,17 @@ export default class Boy { //  기본은 정면보는
         this.moveDown = false;
 
         this.#speed = 1; //같은 클래스내니까 set아니고 바로 접근해서 초기화 가능! 같은 모듈이아니라면 set,get 이용
+        
+
+        //r1, r2용
+        this.r1 = 0;
+        this.r2 = 0;
+        
+        //전투기 좌표
+        this.ex = 0;
+        this.ey = 0;
+
+
     }
 
     //setter, getter를 좀 더 은닉성 있게 표현하는 방법 - 외부에서 접근할 수 있도록 set, get 제공
@@ -69,10 +82,54 @@ export default class Boy { //  기본은 정면보는
         // }.bind(this); //밖 this는 boy니까 이게 더 보기 좋음 bind(boy1) 보다!
         ctx.drawImage(this.img, this.sx, this.sy, this.sw, this.sh,this.x-this.sw/2, this.y-this.sh+15, this.sw, this.sh);
 
+
+        //캐릭터랑 원이랑 맞나 그려보기
+
+        //그림그릴때 끝내는 부분인데, 워낙 자주그리다보니 합쳐서
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r2,0, 2*Math.PI);
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.arc(this.ex, this.ey, this.r1, 0, 2*Math.PI);
+        ctx.stroke();
     };
 
     //처음에 멈추는거 전체를 if문으로 감싸고 vx가 0이 아닐때만 동작하도록
     update() {
+
+        console.log(newlec.enemies.length);
+        for(let enemy of newlec.enemies) {
+            
+            //전투기 중앙값
+            this.ex = enemy.x;
+            this.ey = enemy.y;
+
+            let x = this.x;
+            let y = this.y;
+
+            let d = Math.sqrt((this.ex - x)*(this.ex - x) + (this.ey-y)*(this.ey-y));
+             
+            //r1 (전투기 반지름)
+            let enemyWidthHalf = enemy.width/2;
+            let enemyHightHalf = enemy.height/2;
+            this.r1 = Math.sqrt(enemyWidthHalf*enemyWidthHalf + enemyHightHalf*enemyHightHalf) ;
+            // r2 : boy 반지름
+            this.r2 = Math.sqrt(this.sw/2 * this.sw/2 + this.sh/2 * this.sh/2 ) ;
+            let r1r2 = this.r1+this.r2;
+
+            if(d <= r1r2) {
+                //충돌하면 전투기 제거 ( 제거는 캔바스가)
+                console.log("충돌");
+                // if(onRemoveEnemy != null)
+                //     this.onRemoveEnemyByConflict(enemy);
+                //아님! 위임을 안하려고 전역 context 를 생성한거니까!!!
+                newlec.enemies.splice(newlec.enemies.indexOf(enemy),1);
+            }
+        }
+
+
+        
 
             //-------------------------------------------------------------
     //   이동을 위한 코드    

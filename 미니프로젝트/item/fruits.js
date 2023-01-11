@@ -13,6 +13,8 @@ export default class Fruits {
         this.img = document.querySelector(this.fruits[this.idx]);
         console.log(this.img);
 
+        this.vx = 0;
+        this.vy = 0;
 
     }
 
@@ -21,9 +23,15 @@ export default class Fruits {
     }
 
     update() {
-        this.x = this.x;
-        this.y = this.y;
+        this.vx = 0.1;
+        this.vy = 0.1;
+
+        this.x += this.vx;
+        this.y += this.vy;
     }
+
+    //클릭하면 과일 제거, 위임함수
+    
 
  
 

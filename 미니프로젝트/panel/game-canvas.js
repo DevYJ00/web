@@ -1,10 +1,16 @@
 import Background from '../item/background.js';
 // import Apple from '../item/apple.js';
 import Fruits from '../item/fruits.js';
+import newlec from '../../수업변형/newlec.js';
 
 export default class GameCanvas {
 
   constructor() {
+
+   
+    newlec.x ++;
+    console.log("두번쨰 x : " + newlec.x );
+
     this.dom = document.querySelector('.game-canvas');
     this.dom.focus();
 
@@ -18,6 +24,8 @@ export default class GameCanvas {
     // this.fruit = new Fruits();
     // this.apple = new Apple();
     
+    
+
     this.fruitmakeDelay = 30;
   }
 

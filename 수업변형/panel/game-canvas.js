@@ -2,11 +2,14 @@
 import Boy from '../item/boy.js';
 import Background from '../item/map.js';
 import Enemy from '../item/enemy.js';
+import newlec from '../newlec.js';
 
 
 export default class GameCanvas {
 
     constructor() {
+
+     
 
         this.dom = document.querySelector('.game-canvas'); //this.dom = canvas
         this.dom.focus(); //처음부터 활성화되도록
@@ -37,7 +40,9 @@ export default class GameCanvas {
         this.enemies = []; //필요에 따라 생성해서 담음 - aggregation.
         this.enemyAppearDelay = Math.ceil(Math.random()*30)+30;
 
-
+        //전투기를 전역공간같은 nelec(context) 에 저장
+        newlec.enemies = this.enemies; //newlect은 아무나 접근하고 사용할 수 있는공간. 공유로 만듬
+        console.log(newlec.enemies.length); //get
 
         // //콜백함수 부여
         // for(let enemy of this.enemies) 
@@ -99,7 +104,7 @@ export default class GameCanvas {
         this.boy.update(); //this.boy <- 객체에 담겨있는 boy -> 그러면  boy의 update() 함수가 호출되는거지 -> boy파일로 가고
        
         for(let enemy of this.enemies)
-        enemy.update();
+            enemy.update();
         
         this.enemyAppearDelay--; //랜덤하게 0.5초~1초 사이에 떨어지게. 
         if(this.enemyAppearDelay == 0) {
@@ -124,7 +129,7 @@ export default class GameCanvas {
             this.enemies.push(enemy);
 
             this.enemyAppearDelay = Math.floor(Math.random()*(30))+30; //초기화  --- 이게 0.5초~1초 맞나?
-            console.log(this.enemyAppearDelay);
+            // console.log(this.enemyAppearDelay);
             }
             
             
