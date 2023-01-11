@@ -12,22 +12,27 @@ export default class Enemy {
         this.onOutOfScreen = null; //게임 캔바스에서 함수를 위임 했는지 안했는지 체크용.
 
         this.img = document.querySelector('#enemy');
+        this.imgExpl = document.querySelector('#explposion');
+        //[e]xplosion [i]ndex
+        this.eix = 0;
+        this.eiy = 0;
+
+        //소스의 하나 크기( 20개 중)
+        this.esw = this.imgExpl.width/4;
+        this.esh = this.imgExpl.height/5;
+
+        this.esx = this.exi * this.esw;
+        this.esy = this.eyi * this.esh;
        
-        // console.log(this.img);
-        
-        // this.width = this.img.width;
-        // this.height = this.img.height;
+
+
+
+      
 
     }
     
     
-    get centerX() {
-        return this.x + this.img.width/2;
-    }
 
-    get centerY() {
-        return this.y + this.img.height/2;
-    }
 
     get width() {
         return this.img.width;
@@ -39,7 +44,17 @@ export default class Enemy {
 
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y);
+
+        //전투기
+        ctx.drawImage(this.img, this.x-this.img.width/2, this.y-this.img.height/2);
+        //폭탄그림
+//drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+        
+        ctx.drawImage(this.imgExpl,this.esx,this.esy,this.esw,this.esh,this.x-this.img.width/2,this.y-this.img.height/2,this.esw,this.esh);
+                
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r1, 0, 2*Math.PI);
+        ctx.stroke();
     }
 
 

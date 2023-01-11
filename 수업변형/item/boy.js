@@ -89,10 +89,7 @@ export default class Boy { //  기본은 정면보는
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r2,0, 2*Math.PI);
         ctx.stroke();
-        
-        ctx.beginPath();
-        ctx.arc(this.ex, this.ey, this.r1, 0, 2*Math.PI);
-        ctx.stroke();
+
     };
 
     //처음에 멈추는거 전체를 if문으로 감싸고 vx가 0이 아닐때만 동작하도록
