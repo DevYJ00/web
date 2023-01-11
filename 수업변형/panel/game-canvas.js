@@ -131,7 +131,7 @@ export default class GameCanvas {
         }
          
         enemyOnOutOfScreenHandler(en) {
-             this.enemies.splice(this.enemies.indexOf(en),1);
+             this.enemies.splice(this.enemies.indexOf(en),1); //정의부분에 bind하면 안되나했지만 정의부분에는 bind가 불가능!
         }
 
     draw() { // -- 에러나서 잠시 주석 처리
