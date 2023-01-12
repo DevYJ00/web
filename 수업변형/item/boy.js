@@ -87,7 +87,7 @@ export default class Boy { //  기본은 정면보는
 
         //그림그릴때 끝내는 부분인데, 워낙 자주그리다보니 합쳐서
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r2,0, 2*Math.PI);
+        ctx.arc(this.x, this.y, this.img.width/7 ,0, 2*Math.PI);
         ctx.stroke();
 
     };
@@ -116,12 +116,21 @@ export default class Boy { //  기본은 정면보는
             let r1r2 = this.r1+this.r2;
 
             if(d <= r1r2) {
-                //충돌하면 전투기 제거 ( 제거는 캔바스가)
+                
+                enemy.chungdol();
                 console.log("충돌");
+                //충돌하면 -> 폭탄이미지 18개띄워주고 -> 비행기 제거
+
+                //충돌하면 장면전환 - 위임 받은 함수(callback)를 호출
+                if(this.onNoLife) // - boy가 태어날때 이 함수를 갖도록 부여(게임캔바스)
+                    this.onNoLife();
+
                 // if(onRemoveEnemy != null)
                 //     this.onRemoveEnemyByConflict(enemy);
+
+                //충돌하면 전투기 제거 ( 제거는 캔바스가)
                 //아님! 위임을 안하려고 전역 context 를 생성한거니까!!!
-                newlec.enemies.splice(newlec.enemies.indexOf(enemy),1);
+                // newlec.enemies.splice(newlec.enemies.indexOf(enemy),1); //불꽃그려지기전에 제거되서 우선 주석처리
             }
         }
 

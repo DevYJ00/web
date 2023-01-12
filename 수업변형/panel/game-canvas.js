@@ -3,6 +3,7 @@ import Boy from '../item/boy.js';
 import Background from '../item/map.js';
 import Enemy from '../item/enemy.js';
 import newlec from '../newlec.js';
+import ConfirmDlg from '../item/ConfirmDlg.js';
 
 
 export default class GameCanvas {
@@ -20,6 +21,16 @@ export default class GameCanvas {
 
         this.bg = new Background();
         this.boy = new Boy(100, 200);// -- 이거 draw 메서드 오류나서 주석처리해놓음
+        this.boy.onNoLife = this.boyNoLifeHandler.bind(this);
+
+        this.dlg = new ConfirmDlg();
+        this.dlg.onclick = () => {
+            console.log("clicked");
+        }
+        this.dlg.show();
+
+
+
         // this.boy.speed++; 
         // console.log(this.boy.speed); //NaN
         //# 붙은거라 읽어올 수가 없음
@@ -41,7 +52,7 @@ export default class GameCanvas {
         this.enemyAppearDelay = Math.ceil(Math.random()*30)+30;
 
         //전투기를 전역공간같은 nelec(context) 에 저장
-        newlec.enemies = this.enemies; //newlect은 아무나 접근하고 사용할 수 있는공간. 공유로 만듬
+        newlec.enemies=this.enemies; //newlect은 아무나 접근하고 사용할 수 있는공간. 공유로 만듬
         console.log(newlec.enemies.length); //get
 
         // //콜백함수 부여
@@ -102,7 +113,7 @@ export default class GameCanvas {
     update() {
         
         this.boy.update(); //this.boy <- 객체에 담겨있는 boy -> 그러면  boy의 update() 함수가 호출되는거지 -> boy파일로 가고
-       
+        this.dlg.update();
         for(let enemy of this.enemies)
             enemy.update();
         
@@ -141,6 +152,7 @@ export default class GameCanvas {
 
     draw() { // -- 에러나서 잠시 주석 처리
         this.bg.draw(this.ctx);
+        this.dlg.draw(this.ctx);
         this.boy.draw(this.ctx); // this.boy <- 객체에 담겨있는 boy -> boy의 draw( ) 함수를 호출 , 매개변수로 게임캔바스의ctx를 넘겨줌, 만약 this안붙이고 ctx넘기면? boy에는 ctx가 없으니까 에러남
         //Uncaught ReferenceError: ctx is not defined at GameCanvas.draw (game-canvas.js:56:23)  at GameCanvas.run (game-canvas.js:36:14) at app.js:6:16
         for(let enemy of this.enemies)
@@ -155,16 +167,32 @@ export default class GameCanvas {
 
     //----- event handler --------------
 
+    boyNoLifeHandler() {
+       //게임 종료를 의미하는 애니메이션을 실행하거나 
+       //게임 종료 또는 계속을 위한 입력을 받거나
+       //바로 캔버스를 전환하거나
+       //기타 등등...
+       //꼭 이미지를 써야하는건 아님, 직접 그려도됨 , 계속 종료 두 버튼 - 캔바스가 아닌 클래스임()
+    }
+
+
+
+
     clickHandler(e) { //prototype이니까 var fu = new fu~ 이건 적합하지 않음
         
-        
+        //클릭됐을때 너 여기있니(e.x, e.y)?하고 물어봐야함 - 만약 적기도 클릭해서 뭔 일이 있다면 적기한테도 물어봐야함
+        // this.boy.notifyClick(e.x,e.y)
+        // for(let enemy of this.enemies) {
+        //     enemy.notifyClick(e.x, e.y)
+        // }
+        if(this.dlg.notifyClick(e.x,e.y)); //dlg도 자식이 있다면, dlg 자식은 dlg가 물어봐야 함
         
         console.log(`마우스클릭`); //GameCanvas가 나와야 하는데, this가 나옴 -> so bind(GameCanvas)
         // this.boy.move(2);
         this.boy.moveTo(e.x,e.y);
 
         // 화면 지우기 ( boy1 은 유지하고 boy2만 지워야 함) - 화면을 화면을 지우는것은 배경으로 덮어버린다.
-        this.boy.draw(this.ctx);
+        // this.boy.draw(this.ctx);
     }
 
     keyDownHandler(e) {

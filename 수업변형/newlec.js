@@ -11,7 +11,7 @@ class Context {
     }
 
     set enemies(value) {
-        this.#enemies = value;
+        this.#enemies = value; //외부에서 set할때 xxx.enemies = 대입값  <- = 로 하기!
     }
 
 
