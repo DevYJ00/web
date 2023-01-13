@@ -28,7 +28,12 @@ export default class GameCanvas{
         // 게임 상태변수
         this.gameover = false;
         this.pause = false;
-    
+        
+
+        //내가 정의한 이벤트(부모가 처리할 이벤트)
+        this.ongameOver = null;
+
+        //내가 처리할 이벤트(내 자식이 나한테 알려줌)
         this.dom.onclick = this.clickHandler.bind(this);
         this.dom.onkeydown = this.keyDownHandler.bind(this);
         this.dom.onkeyup = this.keyUpHandler.bind(this);
@@ -112,8 +117,10 @@ export default class GameCanvas{
     
     dlgClickedHandler(id) {
         // console.log("clicked : " + id);
-        if(this.ongameOver) //위로부터 ongameOver 를 할당 받았는지 확인 후
-            this.ongameOver(); //무슨 상태로 끝났는지 알려줄거라면 매개변수를 통해 알려줌
+        //사용자가 더 이상 게임을 이어갈 의사가 없다고 함.
+        // 위(app.js)로부터 ongameOver 를 할당 받았는지 확인 후
+        if(this.ongameOver) // app이 게임이 끝나고 할 일이 있다고 했나? 했으면 알려줘야지
+            this.ongameOver(); //app에게 canvas가 끝났음을 알림.
     }
     
     // --- 사용자 입력 event handlers -----------------

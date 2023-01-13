@@ -12,7 +12,7 @@ export default class ConfirmDlg{
 
         this.onContinue = false;
         this.onEnd = false;
-        this.onclick = null;
+        this.onclick = null; //gameCanvas 에서 생성하면서 자동할당
         
         this.btnYes = {
             x : 70,
@@ -41,15 +41,17 @@ export default class ConfirmDlg{
 
         //내가 클릭된건가? - 이건 통(dlg) 창 자체!
         if((this.x < x  &&  x < this.x + this.width) 
-            && (this.y < y && y < this.y + this.height))
+            && (this.y < y && y < this.y + this.height)) {
             console.log('앗 나야?!');
         
         //dlg가 클릭된거면, 이제 내 자식들이 클린된건지 확인! 후 알려줘야 함
 
         // this.onclick 위임 변수가 있다면 호출 <--- 누가 위임?
-        if(this.onclick) {
+          if(this.onclick) 
             this.onclick(3); //1을 받으면 DLG, 2를 받으면 OK버튼 3은 NO버튼
-        }
+            console.log(this.onclick(3));
+        
+    }
         //------- 자식에 대한 영역을 찾아서 하는건 알아서 해라. 
         //수업은 3(더 이상 진행 안한다) 으로 가정하고 진행 - 화면 전환 
             
