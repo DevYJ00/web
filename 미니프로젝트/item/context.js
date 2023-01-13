@@ -1,33 +1,37 @@
 //공유공간 (과일객체 올려놓기)
 class Context {
 //클래스처럼 변수 선언은 해주어야 함
-#fruits
-#clickX
+// #fruits
+
+#watermelons
     constructor() {
-        this.#fruits = null;
-        this.#clickX= null;
+        // this.#fruits = null;
+      
 
-        
+        this.#watermelons = null;
 
 
     }
 
-    get fruits() {
-
-        return this.#fruits;
+    get watermelons() {
+        return this.#watermelons;
     }
 
-    set fruits(value) {
-        this.#fruits = value;
+    set watermelons(value) {
+        this.#watermelons = value;
     }
 
-    set clickX(value) {
-        this.#clickX = value;
-    }
 
-    get clickX() {
-        return this.#clickX;
-    }
+
+    // get fruits() {
+
+    //     return this.#fruits;
+    // }
+
+    // set fruits(value) {
+    //     this.#fruits = value;
+    // }
+
 
 }
 
