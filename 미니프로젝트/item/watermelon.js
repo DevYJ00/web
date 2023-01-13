@@ -52,8 +52,11 @@ export default class Watermelon {
         console.log("나야");
         //자기면 과일 제거하기
         // console.log(context.watermelons);
-        context.watermelons = null;
+        // context.watermelons = null;
         // console.log(context.watermelons);
+        let idx = context.watermelons.indexOf(this);
+        console.log(idx);
+
     }   
 
         

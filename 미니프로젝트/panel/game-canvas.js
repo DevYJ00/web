@@ -6,7 +6,7 @@ import Watermelon from '../item/watermelon.js';
 
 export default class GameCanvas {
 
-  constructor() {
+  constructor() { //생성자는 처음에 한 번만 초기화되고 끝임
 
 
     this.dom = document.querySelector('.game-canvas');
@@ -18,12 +18,13 @@ export default class GameCanvas {
     
     //객체
     this.bg = new Background();
-    this.watermelon = new Watermelon();
-    context.watermelons = this.watermelon;
-    // this.watermelons = []; //전역공간에 올릴려면!
+    // this.watermelon = new Watermelon();
+    // context.watermelons = this.watermelon;
+
+    this.watermelons = []; //전역공간에 올릴려면!
 
     
-    this.fruitmakeDelay = 30;
+    this.fruitmakeDelay = 0;
 
     //클릭됐다고 notify
     this.dom.onclick = this.clickHandler.bind(this);
@@ -43,13 +44,6 @@ export default class GameCanvas {
       this.run()
     },17);
 
-    // 배열은 테스트 후에
-    // this.watermelon = new Watermelon();
-    // this.watermelons.push(this.watermelon);
-    // context.watermelons = this.watermelons;
-    
-
-
 
     
   }
@@ -57,7 +51,7 @@ export default class GameCanvas {
 
   draw() {
     this.bg.draw(this.ctx);
-    
+
     if(context.watermelons != null)
       this.watermelon.draw(this.ctx);
     
@@ -66,8 +60,16 @@ export default class GameCanvas {
 
   update() {
 
-    this.watermelon.update();
+    // for(let watermelon in this.watermelons)
+    //   watermelon.update();
+
+    this.fruitmakeDelay --;
+    if(this.fruitmakeDelay == 0) {
     // 진행되면서 과일이 추가되어야 하니까
+    let watermelon = new Watermelon();
+    this.watermelons.push(watermelon);
+    
+    }
     
 
   }

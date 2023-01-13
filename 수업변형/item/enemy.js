@@ -62,25 +62,7 @@ export default class Enemy {
         
         // ctx.drawImage(this.imgExpl,0, 0);
         
-        if(this.isChungdol) {
-        //폭탄그림 - 충돌났을때 그려져야 함 (그림 18개가 그려져야 함) - eix, eiy 변경
-        //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
-        // for(eiy = 1; eiy < 5; eiy++)
-        //     for(eix = 1; eix < 4; eix++) <- 여기가 아니라 변화하는거니까 update
-                console.log('충돌');
-                this.count++;
-                this.eix = Math.floor(this.count%4);
-                this.eiy = Math.floor(this.count/4);    
-                console.log(this.eix, this.eiy);
-                this.esx = this.eix * this.esw;
-                this.esy = this.eiy * this.esh;
-                console.log(this.esx, this.esy);//여기서 업데이트가안되네! esx, esy 값 업데이트하려면 꼭 저렇게 써야하나?
-                
-                ctx.drawImage(this.imgExpl,this.esx,this.esy,this.esw,this.esh,this.x-this.esw/2,this.y-this.esh + 15,this.esw,this.esh);
-                if(this.count == 18) {
-                newlec.enemies.splice(newlec.enemies.indexOf(this),1);
-                this.count = 0;
-                }
+
                 
                     
                 
@@ -88,12 +70,31 @@ export default class Enemy {
         ctx.arc(this.x, this.y, this.img.width/2, 0, 2*Math.PI);
         ctx.stroke();
         }
-    }
+    
 
 
     update() {
         this.y +=this.speed;
 
+        if(this.isChungdol) {
+            //폭탄그림 - 충돌났을때 그려져야 함 (그림 18개가 그려져야 함) - eix, eiy 변경
+            //drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+            // for(eiy = 1; eiy < 5; eiy++)
+            //     for(eix = 1; eix < 4; eix++) <- 여기가 아니라 변화하는거니까 update
+                    console.log('충돌');
+                    this.count++;
+                    this.eix = this.count%4;
+                    this.eiy = Math.floor(this.count/4);
+                    console.log("ㅁㄴㅇㄴㅁ"+this.eix, this.eiy);
+                    // this.esx = this.eix * this.esw;
+                    // this.esy = this.eiy * this.esh;
+                    console.log(this.esx, this.esy);//여기서 업데이트가안되네! esx, esy 값 업데이트하려면 꼭 저렇게 써야하나?
+                    
+                    ctx.drawImage(this.imgExpl,this.esx,this.esy,this.esw,this.esh,this.x-this.esw/2,this.y-this.esh + 15,this.esw,this.esh);
+                    if(this.count == 18) {
+                    newlec.enemies.splice(newlec.enemies.indexOf(this),1);
+                    // this.count = 0;  어차피 연산하니까 필요없음
+                    }
 
         
 
@@ -103,4 +104,6 @@ export default class Enemy {
             if(this.onOutOfScreen != null)  
                 this.onOutOfScreen(this); //나 this를 게임캔바스로 넘기는것
     }
+}
+
 }
